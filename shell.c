@@ -12,11 +12,13 @@
 
 int main(void)
 {
-    char *line = NULL;
-    size_t len = 0;
-    /*char *ps1 = getenv("PS1");*/ /* get prompt from environment */
+    char        *line   = NULL;
+    size_t      len     = 0;
+    const char  *ps1    = NULL;
 
-    while(prompt_and_get_input(PS1, &line, &len) > 0) {
+    ps1 = get_from_env("MY_PRMPT", PS1);     /* determine which prompt to use */
+
+    while(prompt_and_get_input(ps1, &line, &len) > 0) {
         pipeline_struct* pipeline = parse_pipeline(line);
         int n_pipes = pipeline->n_cmds - 1;
 
@@ -93,4 +95,16 @@ pid_t run_with_redir(cmd_struct* command, int n_pipes, int (*pipes)[2])
         perror("Error");
         return 0;
     }
+}
+
+const char *get_from_env(const char *name, const char *dflt)
+{
+    const char *ptr = getenv(name);
+
+    if (DEBUG && ptr == NULL)
+        fprintf(stderr, "Error: Could not get `$%s' from env.", name);
+    if (ptr == NULL)
+        return dflt;
+
+    return ptr;
 }
