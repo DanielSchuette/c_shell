@@ -1,39 +1,42 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
-#define MAX_LEN 1024
-#define TOKEN_SEP " \t\n\r"
+#define  BUF_SIZE           4096
+#define  DELIMS             " \t\n\r"           /* valid token delimiters */
 
-/* Struct representing a shell command and its arguments. */
-typedef struct {
-    char* progname;       /* name of the executable */
+typedef struct {          /* represent a single shell command: */
+    char *prog;           /* name of command, should be command->args[0] */
+    char **args;          /* array of cmd args */
+} command;
 
-    int redirect[2];      /* IO redirects; i'th elem is used as i'th fd i in */
-                          /* the child; a value of -1 indicates no redirect */
-    char* args[];         /* cmd args which must be '\0'-terminated */
-} cmd_struct;
 
-/* Struct representing a pipeline of cmds. cmd[i]-out goes to cmd[i+1]-in. */
-typedef struct {
-    int n_cmds;           /* total number of commands */
-    cmd_struct* cmds[];   /* array of command structs */
-} pipeline_struct;
+enum builtin {
+    exit_builtin          /* builtin `exit' command returns from shell */
+};
 
 /*
- * Parses str into a freshly allocated cmd_struct and returns a pointer to it.
- * The redirects in the returned cmd_struct will be set to -1, ie no redirect.
+ * Extract a command and arguments from an input line. It is split into tokens,
+ * which are then put into a `command' struct and returned to the caller.
  */
-cmd_struct* parse_command(char* str);
+command *get_cmd(char *);
 
 /*
- * Parses str into a freshly allocated pipeline_struct and returns a pointer to
- * it.  All cmd_structs in cmds will also be freshy allocated, and have their
- * redirects set to -1, ie no redirect.
+ * Get the next non-empty token from `line'. Returns NULL if `line' is empty or
+ * exhausted, i.e. no more tokens are available. Empty tokens (i.e. "") are
+ * never returned to the caller.
  */
-pipeline_struct* parse_pipeline(char* str);
+char *get_token(char **);
 
-/* For debugging purposes. */
-void print_command(cmd_struct* command);
-void print_pipeline(pipeline_struct* pipeline);
+/*
+ * Try to interpret a token as a builtin. If the token matches a builtin,
+ * return -1, otherwise return 0.
+ */
+enum builtin builtin_action(const char *);
+
+/* Allocate and NULL memory for a `command' struct. */
+int init_cmd(command *);
+
+/* Free memory of a `command' struct. */
+void free_cmd(command *);
 
 #endif  /* __UTILS_H__ */

@@ -20,3 +20,6 @@ test:
 clean:
 	@rm -f shell *.o
 	@echo 'Clean.'
+
+leak:
+	valgrind --leak-check=full --show-leak-kinds=all ./shell

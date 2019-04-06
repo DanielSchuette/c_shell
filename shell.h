@@ -5,17 +5,14 @@
 #ifndef __SHELL_H__
 #define __SHELL_H__
 
-/* Doc. */
-ssize_t prompt_and_get_input(const char*, char **, size_t *);
+/* Print the shell prompt. */
+int prmpt(const char *);
 
-/* Doc. */
-void close_all_pipes(int, int (*)[2]);
-
-/* Doc. */
-int exec_with_redir(cmd_struct *, int , int (*)[2]);
-
-/* Doc. */
-pid_t run_with_redir(cmd_struct *, int , int (*)[2]);
+/*
+ * A simple wrapper around `getline' which can be updated to be an entry point
+ * to a proper parser.
+ */
+ssize_t get_line(char **, size_t *);
 
 /*
  * Get an environmental variable and return a pointer to it. The second arg is

@@ -1,6 +1,6 @@
 # TODO's
-- fix memory leaks
-- change `(*)[2]` function signatures
+- [x] fix memory leaks (check every now and then)
+
 - implement io redirects
 - add a `cd` builtin to your shell (`chdir` system call, because parent has to handle dir change)
 - `man builtin` for additional builtins (performance (`echo`) vs. necessaty (`cd`)
