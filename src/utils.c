@@ -27,3 +27,9 @@ const char *get_from_env(const char *name, const char *dflt)
 
     return ptr;
 }
+
+void p_error(int err, char *msg)
+{
+    fprintf(stderr, "Error: %s\n", msg);
+    exit(err);
+}
