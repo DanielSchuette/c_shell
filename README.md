@@ -1,4 +1,5 @@
 # TODO's
+- [x] make `exit` builtin (?) work
 - [x] fix memory leaks (check every now and then)
 
 - implement io redirects
@@ -15,18 +16,8 @@
 - implement `export` builtin which sets a var in the _parent_
 - implement wildcard expansion (look at `glob` in `glob.h`)
 - implement background processes with `&` (don't wait on child process)
-- make `exit` builtin (?) work
 
 ## Documentation
-__Rule 0.__:
-The shell does not deal with a whole bunch of _details_, including but not limited to:
-- memory management
-- parsing and tokenising and other text processing
-- ‘proper’ error handling
-
-__File Descriptors__:
-Files on Unix-like systems are managed using __file descriptors__. If you're using Linux, you can see all the file descriptors for a process using `ls -l /proc/<pid>/fd`. File descriptors are positive integers (`0` is stdin, `1` is stdout, `2` is stderr, and 3 and up are any other files the process has open).
-
 __Pipes__:
 ```
 int pipe_fds[2];

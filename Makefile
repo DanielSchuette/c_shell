@@ -1,35 +1,27 @@
 # Make a simple shell.
 # strsep requires _DEFAULT_SOURCE, strndup requires _POSIX_C_SOURCE.
+SRC_DIR := src
+BIN := $(SRC_DIR)/shell
+SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.c, $(SRC_DIR)/%.o, $(SRC_FILES))
 CPPFLAGS := -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L
 CFLAGS := -Wall -Wextra -std=c11 -pedantic -Werror
+VALGRIND_OPTS := --leak-check=full --show-leak-kinds=all
 
 .PHONY: all test clean
 
-all: builtin.o cmd.o shell.o token.o utils.o
-	gcc $(CPPFLAGS) $(CFLAGS) builtin.o cmd.o shell.o \
-		token.o utils.o -o shell
+all: $(OBJ_FILES)
+	gcc $(CPPFLAGS) $(CFLAGS) $(OBJ_FILES) -o $(BIN)
 
-builtin.o: builtin.c
-	gcc $(CPPFLAGS) $(CFLAGS) builtin.c -c -o builtin.o
-
-cmd.o: cmd.c
-	gcc $(CPPFLAGS) $(CFLAGS) cmd.c -c -o cmd.o
-
-shell.o: shell.c
-	gcc $(CPPFLAGS) $(CFLAGS) shell.c -c -o shell.o
-
-token.o: token.c
-	gcc $(CPPFLAGS) $(CFLAGS) token.c -c -o token.o
-
-utils.o: utils.c
-	gcc $(CPPFLAGS) $(CFLAGS) utils.c -c -o utils.o
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
+	gcc $(CPPFLAGS) $(CFLAGS) $< -c -o $@
 
 test:
-	./shell
+	./$(BIN)
 
 clean:
-	@rm -f shell *.o
+	@rm -f $(BIN) $(SRC_DIR)/*.o
 	@echo 'Clean.'
 
 leak:
-	valgrind --leak-check=full --show-leak-kinds=all ./shell
+	valgrind $(VALGRIND_OPTS) ./$(BIN)
