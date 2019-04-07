@@ -30,16 +30,17 @@ int main(void)
 
         if ((pid = fork()) < 0) { /* fork error */
             p_error(1, "Failed to fork another process.");
-        } else if (pid == 0) { /* child */
-            if (execvp(cmd->prog, cmd->args) < 0)
-                p_error(1, "Unknown command.");
-        } else { /* parent */
+        } else if (pid == 0) {                    /* child */
+            if (execvp(cmd->prog, cmd->args) < 0) /* execute cmd */
+                p_error(1, "Unknown command.");   /* process must be killed */
+        } else {                                  /* parent */
             wait(NULL);
         }
 
         free_cmd(cmd);
     }
-    free(line); /* if SIGINT exists instead of ^D, 120 bytes are lost */
+    free(line); /* if SIGKILL exists instead of ^D, these 120 bytes must be
+                   reclaimed by the OS */
     fprintf(stderr, "\n");
 
     return 0;
