@@ -1,13 +1,14 @@
 # Roadmap of Features to be Implemented
 - [x] make `exit` builtin work
 - [x] fix memory leaks
+- [x] set up a `SIGINT` signal handler (^D still sends an EOF to the shell)
 
 ---
 
 - add a `cd` builtin (`chdir` system call, because parent has to handle dir change)
-- set up a `SIGINT` signal handler (^Z should still kill the shell)
 - implement parsing of single- and double-quoted strings
 - implement `setenv` in child process, i.e. in cmds like `VAR=val echo $VAR` prints `val`
+- implement background processes with `&` (don't wait on child process)
 
 ---
 
@@ -20,7 +21,6 @@
 - implement shell variable expansion via `getenv` (like `echo $HOME` prints `/home/daniel`)
 - implement `export` builtin which sets a var in the _parent_
 - implement wildcard expansion (look at `glob` in `glob.h`)
-- implement background processes with `&` (don't wait on child process)
 
 ## Documentation
 __Pipes__:

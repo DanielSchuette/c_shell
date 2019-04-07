@@ -31,9 +31,8 @@ int main(void)
         if ((pid = fork()) < 0) { /* fork error */
             p_error(1, "Failed to fork another process.");
         } else if (pid == 0) { /* child */
-            if (execvp(cmd->prog, cmd->args) < 0) {
-                fprintf(stderr, "Error: Unknown command.\n");
-            }
+            if (execvp(cmd->prog, cmd->args) < 0)
+                p_error(1, "Unknown command.");
         } else { /* parent */
             wait(NULL);
         }
