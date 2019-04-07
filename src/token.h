@@ -1,7 +1,11 @@
 #ifndef __TOKEN_H__
 #define __TOKEN_H__
 
-#define  DELIMS             " \t\n\r"           /* valid token delimiters */
+#define DELIMS " \t\n\r" /* valid token delimiters */
+
+typedef struct { /* defines a token: */
+    char *val;   /* value of the token */
+} token;
 
 /*
  * Get the next non-empty token from `line'. Returns NULL if `line' is empty or

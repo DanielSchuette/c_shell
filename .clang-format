@@ -1,0 +1,4 @@
+BreakBeforeBraces: Linux
+IndentWidth: 4
+AllowShortIfStatementsOnASingleLine: true
+AlignConsecutiveAssignments: true

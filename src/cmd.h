@@ -1,9 +1,9 @@
 #ifndef __CMD_H__
 #define __CMD_H__
 
-typedef struct {          /* represent a single shell command: */
-    char *prog;           /* name of command, should be command->args[0] */
-    char **args;          /* array of cmd args */
+typedef struct { /* represent a single shell command: */
+    char *prog;  /* name of command, should be command->args[0] */
+    char **args; /* array of cmd args */
 } command;
 
 /*

@@ -9,11 +9,11 @@
 command *get_cmd(char *line)
 {
     command *cmd;
-    char    *token;
-    int     i       = 0;
+    char *token;
+    int i = 0;
 
     /* allocate `command' struct */
-    cmd = malloc(sizeof(command *));
+    cmd = malloc(sizeof(command));
     if (!cmd || init_cmd(cmd)) {
         fprintf(stderr, "Error: Not enough memory.\n");
         free_cmd(cmd);
@@ -25,9 +25,9 @@ command *get_cmd(char *line)
         /* for first token, test if it's a builtin */
         enum builtin bi;
         if ((i == 0) && (bi = builtin_action(token))) {
-            if (bi == exit_builtin)
-                exit(0);
-            /* TODO: other builtins */
+            if (bi == exit_builtin) exit(0);
+            if (bi == cd_builtin) exit(0); /* TODO: implement */
+            /* other builtins */
         }
 
         cmd->args[i] = token;
@@ -38,14 +38,15 @@ command *get_cmd(char *line)
         }
         i++;
     }
-    cmd->prog = cmd->args[0];   /* point prog name to 1'st arg */
+    cmd->prog = cmd->args[0]; /* point prog name to 1'st arg */
 
     return cmd;
 }
 
 int init_cmd(command *cmd)
 {
-    cmd->args = malloc(sizeof(char *)*BUF_SIZE);  /* up to BUF_SIZE char ptrs */
+    cmd->args =
+        malloc(sizeof(char *) * BUF_SIZE); /* up to BUF_SIZE char ptrs */
     if (cmd->args) {
         for (int i = 0; i < BUF_SIZE; i++) /* NULL all char ptrs for `execvp' */
             cmd->args[i] = NULL;

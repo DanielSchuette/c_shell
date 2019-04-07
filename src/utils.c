@@ -23,8 +23,7 @@ const char *get_from_env(const char *name, const char *dflt)
 
     if (DEBUG && ptr == NULL)
         fprintf(stderr, "Error: Could not get `$%s' from env.\n", name);
-    if (ptr == NULL)
-        return dflt;
+    if (ptr == NULL) return dflt;
 
     return ptr;
 }

@@ -3,9 +3,9 @@
 
 #include <unistd.h>
 
-#define  BUF_SIZE   4096
-#define  DEBUG      1
-#define  PS1        "\033[31m[[daniel@shell]]\033[m " /* `man console_codes' */
+#define BUF_SIZE 4096
+#define DEBUG 1                               /* 1=on, 0=off */
+#define PS1 "\033[31m[[daniel@shell]]\033[m " /* `man console_codes' */
 
 /* Print the shell prompt. */
 int prmpt(const char *);
@@ -22,4 +22,4 @@ ssize_t get_line(char **, size_t *);
  */
 const char *get_from_env(const char *, const char *);
 
-#endif  /* __UTILS_H__ */
+#endif /* __UTILS_H__ */

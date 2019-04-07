@@ -2,7 +2,8 @@
 #define __BUILTIN_H__
 
 enum builtin {
-    exit_builtin = 1,     /* builtin `exit' command returns from shell */
+    exit_builtin = 1, /* builtin `exit' command returns from shell */
+    cd_builtin = 2,   /* builtin `cd` command changes dirs via chdir */
 };
 
 /*
@@ -11,4 +12,4 @@ enum builtin {
  */
 enum builtin builtin_action(const char *);
 
-#endif  /* __BUILTIN_H__ */
+#endif /* __BUILTIN_H__ */
