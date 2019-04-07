@@ -5,11 +5,21 @@ CFLAGS := -Wall -Wextra -std=c11 -pedantic -Werror
 
 .PHONY: all test clean
 
-all: shell.o utils.o
-	gcc $(CPPFLAGS) $(CFLAGS) shell.o utils.o -o shell
+all: builtin.o cmd.o shell.o token.o utils.o
+	gcc $(CPPFLAGS) $(CFLAGS) builtin.o cmd.o shell.o \
+		token.o utils.o -o shell
+
+builtin.o: builtin.c
+	gcc $(CPPFLAGS) $(CFLAGS) builtin.c -c -o builtin.o
+
+cmd.o: cmd.c
+	gcc $(CPPFLAGS) $(CFLAGS) cmd.c -c -o cmd.o
 
 shell.o: shell.c
 	gcc $(CPPFLAGS) $(CFLAGS) shell.c -c -o shell.o
+
+token.o: token.c
+	gcc $(CPPFLAGS) $(CFLAGS) token.c -c -o token.o
 
 utils.o: utils.c
 	gcc $(CPPFLAGS) $(CFLAGS) utils.c -c -o utils.o
