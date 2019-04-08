@@ -30,10 +30,14 @@ int main(void)
 
         if ((pid = fork()) < 0) { /* fork error */
             p_error(1, "Failed to fork another process.");
-        } else if (pid == 0) {                    /* child */
-            if (execvp(cmd->prog, cmd->args) < 0) /* execute cmd */
-                p_error(1, "Unknown command.");   /* process must be killed */
-        } else {                                  /* parent */
+        } else if (pid == 0) {                     /* child: */
+            if (cmd->built != no_builtin) exit(0); /* nothing to do for child */
+            if (execvp(cmd->prog, cmd->args) < 0)  /* doesn't return on err, */
+                p_error(1, "Unknown command.");    /* so proc must be killed */
+        } else {                                   /* parent: */
+            /* match cmd->builtin field with action & wait */
+            if (cmd->built == cd_builtin) __cd(cmd->args[1]);
+            if (cmd->built == exit_builtin) exit(0);
             wait(NULL);
         }
 

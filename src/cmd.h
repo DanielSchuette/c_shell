@@ -1,9 +1,12 @@
 #ifndef __CMD_H__
 #define __CMD_H__
 
-typedef struct { /* represent a single shell command: */
-    char *prog;  /* name of command, should be command->args[0] */
-    char **args; /* array of cmd args */
+#include "builtin.h"
+
+typedef struct {        /* represent a single shell command: */
+    char *prog;         /* name of command, should be command->args[0] */
+    char **args;        /* array of cmd args */
+    enum builtin built; /* 0=no builtin, otherwise defined in "builtin.h" */
 } command;
 
 /*
