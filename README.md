@@ -1,23 +1,28 @@
 # C Shell
-This is a simple shell-like command interpreter. It supports basic operations like executing programs (using `execvp` internally) and changing directories with `cd` (using `chdir`). Additional features are planned. This shell is *not* POSIX-compliant and does not implement any scripting capabilities.
+This is a simple shell-like command interpreter. It supports basic operations like executing programs (using `execvp` internally) and changing directories with `cd` (using `chdir`). Implementation of additional features is planned.
+
+This shell is *not* POSIX-compliant and does not have any scripting capabilities. That's mainly because it does not have a complex parser. Instead, single lines are read from `stdin` and split at delimiters like ` ` or tabs. Only a limited set of *special characters* like `|` are treated differently.
 
 ## Roadmap of Future Features
 
-- [ ] implement parsing of single- and double-quoted strings
+- [ ] implement two-way pipes with `|` (`pipe` system call)
+- [ ] implement file IO redirection with `>` (`open` instead of `pipes`)
 - [ ] implement `setenv` in child process, i.e. in cmds like `VAR=val echo $VAR` prints `val`
+- [ ] implement shell variable expansion via `getenv` (like `echo $HOME` prints `/home/daniel`)
 - [ ] implement background processes with `&` (don't wait on child process)
 
 ---
 
-- [ ] implement IO redirects
-- [ ] implement two-way pipes (`pipes` system call)
 - [ ] implement arbitrary-length (?) pipes
-- [ ] implement file IO redirection (`open` instead of `pipes`)
 - [ ] implement redirection of fd 2 (`stderr` like `echo 'err' 2> out`)
-- [ ] implement redirection of fd 2 to fd 2 (like `echo 'err' > out 2>&1`)
-- [ ] implement shell variable expansion via `getenv` (like `echo $HOME` prints `/home/daniel`)
+- [ ] implement redirection of fd 2 to fd 1 (like `echo 'err' > out 2>&1`)
 - [ ] implement `export` builtin which sets a var in the _parent_
 - [ ] implement wildcard expansion (look at `glob` in `glob.h`)
+- [ ] implement aliasing of commands
+- [ ] support a settings file:
+    - [ ] aliases
+    - [ ] exported variables
+    - [ ] `$PS1`
 
 ## Some Useful Documentation
 __Pipes__:
