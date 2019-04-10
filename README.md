@@ -3,6 +3,8 @@ This is a simple shell-like command interpreter. It supports basic operations li
 
 This shell is *not* POSIX-compliant and does not have any scripting capabilities. That's mainly because it does not have a complex parser. Instead, single lines are read from `stdin` and split at delimiters like ` ` or tabs. Only a limited set of *special characters* like `|` are treated differently.
 
+GNU shell documentation that covers the basic features of `bash` can be found [here](https://www.gnu.org/software/bash/manual/html_node/Basic-Shell-Features.html#Basic-Shell-Features). Implementing some of these features might be educational, too.
+
 ## Roadmap of Future Features
 
 - [ ] implement two-way pipes with `|` (`pipe` system call)
