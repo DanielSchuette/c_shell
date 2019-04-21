@@ -15,7 +15,7 @@ GNU shell documentation that covers the basic features of `bash` can be found [h
 
 ---
 
-- [ ] implement arbitrary-length (?) pipes
+- [ ] implement arbitrary-length pipes
 - [ ] implement redirection of fd 2 (`stderr` like `echo 'err' 2> out`)
 - [ ] implement redirection of fd 2 to fd 1 (like `echo 'err' > out 2>&1`)
 - [ ] implement `export` builtin which sets a var in the _parent_
