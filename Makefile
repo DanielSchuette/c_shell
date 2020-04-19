@@ -1,9 +1,9 @@
 # Make a simple shell.
-SRC_DIR := src
-BIN := $(SRC_DIR)/shell
+SRC_DIR   := src
+BIN 	  := $(SRC_DIR)/shell
 SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c, $(SRC_DIR)/%.o, $(SRC_FILES))
-CFLAGS := -Wall -Wextra -std=c11 -pedantic -Werror \
+CFLAGS 	  := -Wall -Wextra -std=c11 -pedantic -Werror \
 	-D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200809L
 VALGRIND_OPTS := --leak-check=full --show-leak-kinds=all
 
